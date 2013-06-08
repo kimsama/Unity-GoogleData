@@ -1,0 +1,20 @@
+using UnityEngine;
+using UnityEditor;
+using System.IO;
+
+public static class LocalizeAssetUtility
+{
+	[MenuItem("Assets/Create/Localize/LanguagePack")]
+	public static void CreateAssetLanguagePack()
+	{
+		CustomAssetUtility.CreateAsset<LanguagePack>();
+	}
+	
+	[MenuItem("Assets/Create/Localize/GoogleDataSetting")]
+	public static void CreateAssetEnglishLanguage()
+	{		
+		GoogleDataSettings.Create();
+	}
+
+	
+}
