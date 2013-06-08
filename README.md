@@ -1,7 +1,7 @@
 Unity-GoogleData
 ================
 
-Unity-GoogleData enables Unity editor to use google spreadsheet data within its editor. With Unity-GoogleData, you can retrieve data from google spreadsheet or upload any changed data back to google spreadsheet. 
+Unity-GoogleData enables to use google spreadsheet data within Unity editor. With Unity-GoogleData, you can retrieve data from google spreadsheet or upload any changed data back to google spreadsheet. 
 
 
 Usage
