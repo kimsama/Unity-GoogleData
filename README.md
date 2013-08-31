@@ -25,15 +25,15 @@ First, you need to create a google spreadsheet. Login google drive with your goo
 
 Change the title of the created spreadsheet as 'MySpreadSheet' like the following:
 
-![Create a google spreadsheet](https://raw.github.com/kimsama/Unity-GoogleData/blob/doc-branch/images/gdata_title.png "Google Spreadsheet")
+![Create a google spreadsheet](./images/gdata_title.png "Google Spreadsheet")
 
 Next, create a new worksheet and rename it to whatever you want to as the following image shows:
 
-![Create a worksheet](https://raw.github.com/kimsama/Unity-GoogleData/blob/doc-branch/images/gdata_worksheet.png "Google Worksheet")
+![Create a worksheet](./images/gdata_worksheet.png "Google Worksheet")
 
 Now, it needs to edit cells for spreadsheet. Insert 'Key' and 'Text' at the first row of the created worksheet as like that:
 
-![Edit cells](https://github.com/kimsama/Unity-GoogleData/blob/doc-branch/images/gdata_cells.png)
+![Edit cells](./images/gdata_cells.png)
 
 Note that the first row should not contain any values which are used for your class members.
 
