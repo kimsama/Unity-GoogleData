@@ -33,7 +33,7 @@ Next, create a new worksheet and rename it to whatever you want to as the follow
 
 Now, it needs to edit cells for spreadsheet. Insert 'Key' and 'Text' at the first row of the created worksheet as like that:
 
-![Edit cells](https://raw.github.com/kimsama/Unity-GoogleData/blob/doc-branch/images/gdata_cells.png "Edit cells")
+![Edit cells](https://github.com/kimsama/Unity-GoogleData/blob/doc-branch/images/gdata_cells.png)
 
 Note that the first row should not contain any values which are used for your class members.
 
