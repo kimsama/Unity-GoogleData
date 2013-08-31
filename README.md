@@ -149,7 +149,7 @@ Within *OnInspectorGUI*, all data which are retrieved are properly drawn on the 
 		}
 		
 
-
+When you press *Download* button, overrided *Load* member function is call. So it's the place actually creates a database object and retrieves all data from google's spreadsheet.
 
 		public override bool Load()
 		{
