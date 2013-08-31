@@ -23,17 +23,17 @@ Usage
 First, you need to create a google spreadsheet. Login google drive with your google account and create a new spreadsheet.
 
 
-Change the title of the created spreadsheet to MySpreadSheet:
+Change the title of the created spreadsheet as 'MySpreadSheet' like the following:
 
 ![Create a google spreadsheet](... "Google Spreadsheet")
 
 Next, create a new worksheet and rename it to whatever you want to as the following image shows:
 
-> insert worksheet image.
+![Create a worksheet](... "Google Worksheet")
 
 Now, it needs to edit cells for spreadsheet. Insert 'Key' and 'Text' at the first row of the created worksheet as like that:
 
-> insert image.
+![Edit cells](... "Edit cells")
 
 Note that the first row should not contain any values which are used for your class members.
 
