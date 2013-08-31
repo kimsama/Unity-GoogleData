@@ -22,7 +22,7 @@ Usage
 
 ### Creating a Google SpreadSheet
 
-This part of the document briefly shows how it works with the existing sample. If you need to know how to make your own class data for your googld spreadsheet, see the *Creating Your Own Unity3D ScriptableObject class* section.
+This part of the document briefly shows how it works with the existing sample. If you need to know how to make your own class data for your googld spreadsheet, see the [Creating Your Own Unity3D ScriptableObject class](https://github.com/kimsama/Unity-GoogleData#creating-your-own-unity3d-scriptableobject-class) section.
 
 First, you need to create a google spreadsheet on your Google Drive. Login your Google Drive with your google account and create a new spreadsheet.
 
