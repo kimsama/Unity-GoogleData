@@ -18,10 +18,13 @@ Usage
 
 ### Setting a Google Project
 
+*NOTE*: It is no longer necessary to specify google project with GDataDB.
+
 ### Creating a Google SpreadSheet
 
-First, you need to create a google spreadsheet. Login google drive with your google account and create a new spreadsheet.
+This part of the document briefly shows how it works with the existing sample. If you need to know how to make your own class data for your googld spreadsheet, see the *Creating Your Own Unity3D ScriptableObject class* section.
 
+First, you need to create a google spreadsheet on your Google Drive. Login your Google Drive with your google account and create a new spreadsheet.
 
 Change the title of the created spreadsheet as 'MySpreadSheet' like the following:
 
@@ -46,11 +49,11 @@ Next, you need to specify the google account and password then insert spreadshee
 
 ![Account](./images/connect.png "Google Account")
 
-Then press *Connect* button and it shows the following if it successfuly connected.
+Then press *Connect* button and it shows the following if it is successfuly connected to the spreadsheet.
 
 ![Connect](./images/connect02.png "Google Connect")
 
-Now, press *Download* button and it will retrieve all data from the Google spreadsheet and properly reflects data on the Unity's Inspector view.
+Now, press *Download* button and it will retrieve all data from the specified worksheet and properly reflects all the data on the Unity's Inspector view.
 
 ![Download](./images/download.png "Google Download")
 
