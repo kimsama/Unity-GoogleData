@@ -46,7 +46,7 @@ Note that the first row should not contain any values which are used for your cl
 References
 ----------
 * [GDataDB](https://github.com/mausch/GDataDB) is used to retrieve data from Google Spreadsheet.
-* [ExposeProperties](http://wiki.unity3d.com/index.php/Expose_properties_in_inspector) is used to easily expose variables of spreadsheet on the Unity3D's inspector view and let them access through get/set accessors.
+* [ExposeProperties](http://wiki.unity3d.com/index.php/Expose_properties_in_inspector) is used to easily expose variables of spreadsheet on the Unity3D's inspector view and let [GDataDB](https://github.com/mausch/GDataDB) access through get/set accessors.
 
 
 License
