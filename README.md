@@ -20,6 +20,23 @@ Usage
 
 ### Creating a Google SpreadSheet
 
+First, you need to create a google spreadsheet. Login google drive with your google account and create a new spreadsheet.
+
+
+Change the title of the created spreadsheet to MySpreadSheet:
+
+![Create a google spreadsheet](... "Google Spreadsheet")
+
+Next, create a new worksheet and rename it to whatever you want to as the following image shows:
+
+> insert worksheet image.
+
+Now, it needs to edit cells for spreadsheet. Insert 'Key' and 'Text' at the first row of the created worksheet as like that:
+
+> insert image.
+
+Note that the first row should not contain any values which are used for your class members.
+
 ### Setting GoogleDataSetting Unity3D asset
 
 ### Creating Unity3D ScriptableObject class
