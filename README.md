@@ -60,7 +60,7 @@ Now, press *Download* button and it will retrieve all data from the specified wo
 
 ### Creating Your Own Unity3D ScriptableObject class
 
-First, you need to define data class which represents google worksheet.
+First, you need to define a data class which represents google worksheet. As the following code, if you have two colums, *Key* and *Text* you also need to define two properties for that.
 
     [System.Serializable]
     public class MyData
@@ -149,7 +149,7 @@ Within *OnInspectorGUI*, all data which are retrieved are properly drawn on the 
 		}
 		
 
-When you press *Download* button, overrided *Load* member function is call. So it's the place actually creates a database object and retrieves all data from google's spreadsheet.
+When you press *Download* button, overrided *Load* member function is called. So it's the place actually a database object is created and all data are retrieved from the google spreadsheet.
 
 		public override bool Load()
 		{
