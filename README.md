@@ -40,7 +40,14 @@ Note that the first row should not contain any values which are used for your cl
 
 ### Setting GoogleDataSetting Unity3D asset
 
-### Creating Unity3D ScriptableObject class
+
+
+### Creating Your Own Unity3D ScriptableObject class
+
+
+
+Limitation
+----------
 
 
 
