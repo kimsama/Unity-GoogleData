@@ -40,6 +40,19 @@ Note that the first row should not contain any values which are used for your cl
 
 ### Setting GoogleDataSetting Unity3D asset
 
+Open Unity3D editor and select *MySpreadSheet* asset file on the project view. 
+
+Next, you need to specify the google account and password then insert spreadsheet and worksheet name for *Sheet Name* and *Worksheet Name* text field. 
+
+![Account](./images/connect.png "Google Account")
+
+Then press *Connect* button and it shows the following if it successfuly connected.
+
+![Connect](./images/connect02.png "Google Connect")
+
+Now, press *Download* button and it will retrieve all data from the Google spreadsheet and properly reflects data on the Unity's Inspector view.
+
+![Download](./images/download.png "Google Download")
 
 
 ### Creating Your Own Unity3D ScriptableObject class
