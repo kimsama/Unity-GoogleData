@@ -60,6 +60,7 @@ Now, press *Download* button and it will retrieve all data from the specified wo
 
 ### Creating Your Own Unity3D ScriptableObject class
 
+First, you need to define data class which represents google worksheet.
 
     [System.Serializable]
     public class MyData
@@ -71,6 +72,124 @@ Now, press *Download* button and it will retrieve all data from the specified wo
 	    public string Text	{ get; set; }	
     }
 
+
+You need a ScriptableObject derived class which serializes data from google spreadsheet and to Unity Editor. It can be easily done with writing a BaseDatabase derived class.
+
+	public class MySpreadSheet : BaseDatabase 
+	{
+		public MyData[] dataArray = new MyData[0];
+		
+		void OnEnable()
+		{
+	#if UNITY_EDITOR
+			//hideFlags = HideFlags.DontSave;
+	#endif
+		}
+		
+		public MyData FindByKey(string key)
+		{
+			return Array.Find(dataArray, d => d.Key == key);
+		}
+	}
+
+
+You also need to write editor script. It needs to override three member functions: *OnEnable*, *OnInspectorGUI* and *Load* are that.
+
+
+	using UnityEngine;
+	using UnityEditor;
+	using System.Collections;
+	using System.Collections.Generic;
+	using System.Text;
+
+	using GDataDB;
+	using GDataDB.Linq;
+
+	[CustomEditor(typeof(MySpreadSheet))]
+	public class MySpreadSheetEditor  : BaseEditor<MySpreadSheet>
+	{
+		
+		public override void OnEnable()
+		{
+			base.OnEnable();
+			
+			MySpreadSheet data = database as MySpreadSheet;
+			
+			databaseFields = ExposeProperties.GetProperties(data);
+			
+			foreach(MyData e in data.dataArray)
+			{
+			    dataFields = ExposeProperties.GetProperties(e);
+				pInfoList.Add(dataFields);
+			}
+		}
+		
+
+Within *OnInspectorGUI*, all data which are retrieved are properly drawn on the inspector view of Unity Editor.
+
+		public override void OnInspectorGUI()
+		{
+			base.OnInspectorGUI();
+			
+			//DrawDefaultInspector();
+			if (GUI.changed)
+			{
+				pInfoList.Clear();
+				
+				MySpreadSheet data = database as MySpreadSheet;
+				foreach(MyData e in data.dataArray)
+				{
+					dataFields = ExposeProperties.GetProperties(e);
+					pInfoList.Add(dataFields);
+				}
+				
+				EditorUtility.SetDirty(target);
+				Repaint();
+			}
+		}
+		
+
+
+
+		public override bool Load()
+		{
+			var client = new DatabaseClient(username, password);		
+			var db = client.GetDatabase(database.SheetName) ?? client.CreateDatabase(database.SheetName);	
+			var table = db.GetTable<MyData>(database.WorksheetName) ?? db.CreateTable<MyData>(database.WorksheetName);
+			
+			List<MyData> myDataList = new List<MyData>();
+			
+			var all = table.FindAll();						
+			foreach(var elem in all)
+			{
+				MyData data = new MyData();
+				
+				data = Cloner.DeepCopy<MyData>(elem.Element);
+				myDataList.Add(data);
+			}
+						
+			MySpreadSheet mySpreadSheet = (MySpreadSheet)base.database;
+			mySpreadSheet.dataArray = myDataList.ToArray();
+			
+			EditorUtility.SetDirty(mySpreadSheet);
+			AssetDatabase.SaveAssets();
+			
+			return true;
+		}
+	}
+
+
+Last, write an editor script which makes a menu item for creating newly defined scriptable object.
+
+	public static class GoogleDataAssetUtility
+	{
+		[MenuItem("Assets/Create/GoogleData/MySpreadSheet")]
+		public static void CreateGoogleDataTestSphreadSheetAsset()
+		{
+			CustomAssetUtility.CreateAsset<MySpreadSheet>();
+		}
+		
+	}
 
 
 Limitation
