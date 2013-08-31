@@ -60,18 +60,17 @@ Now, press *Download* button and it will retrieve all data from the specified wo
 
 ### Creating Your Own Unity3D ScriptableObject class
 
-`
-[System.Serializable]
-public class MyData
-{
-	[ExposeProperty]
-	public string Key				{ get; set; }
+
+    [System.Serializable]
+    public class MyData
+    {
+	    [ExposeProperty]
+	    public string Key	{ get; set; }
 	
-	[ExposeProperty]
-	public string Text	{ get; set; }
-	
-}
-`
+	    [ExposeProperty]
+	    public string Text	{ get; set; }	
+    }
+
 
 
 Limitation
