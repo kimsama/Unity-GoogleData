@@ -35,7 +35,7 @@ Now, it needs to edit cells for spreadsheet. Insert 'Key' and 'Text' at the firs
 
 ![Edit cells](./images/gdata_cells.png)
 
-*IMPORTANT*
+**IMPORTANT** <br>
 Note that the first row should not contain any values which are used for your class members.
 
 ### Setting GoogleDataSetting Unity3D asset
