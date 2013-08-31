@@ -26,7 +26,7 @@ This part of the document briefly shows how it works with the existing sample. I
 
 First, you need to create a google spreadsheet on your Google Drive. Login your Google Drive with your google account and create a new spreadsheet.
 
-Change the title of the created spreadsheet as 'MySpreadSheet' like the following:
+Change the title of the created spreadsheet as *'MySpreadSheet'* like the following:
 
 ![Create a google spreadsheet](./images/gdata_title.png "Google Spreadsheet")
 
@@ -34,7 +34,7 @@ Next, create a new worksheet and rename it to whatever you want to as the follow
 
 ![Create a worksheet](./images/gdata_worksheet.png "Google Worksheet")
 
-Now, it needs to edit cells for spreadsheet. Insert 'Key' and 'Text' at the first row of the created worksheet as like that:
+Now, it needs to edit cells for spreadsheet. Insert *'Key'* and *'Text'* at the first row of the created worksheet as like that:
 
 ![Edit cells](./images/gdata_cells.png)
 
@@ -60,6 +60,18 @@ Now, press *Download* button and it will retrieve all data from the specified wo
 
 ### Creating Your Own Unity3D ScriptableObject class
 
+`
+[System.Serializable]
+public class MyData
+{
+	[ExposeProperty]
+	public string Key				{ get; set; }
+	
+	[ExposeProperty]
+	public string Text	{ get; set; }
+	
+}
+`
 
 
 Limitation
@@ -69,7 +81,7 @@ Limitation
 
 References
 ----------
-* [GDataDB](https://github.com/mausch/GDataDB) is used to retrieve data from Google Spreadsheet.
+* [GDataDB](https://github.com/mausch/GDataDB) is used to retrieve data from Google Spreadsheet. Note that [GDataDB](https://github.com/mausch/GDataDB) is slightly modified to support *enum* type.
 * [ExposeProperties](http://wiki.unity3d.com/index.php/Expose_properties_in_inspector) is used to easily expose variables of spreadsheet on the Unity3D's inspector view and let [GDataDB](https://github.com/mausch/GDataDB) access through get/set accessors.
 
 
