@@ -17,7 +17,7 @@ public class GoogleDataSettings : ScriptableObject
 	//[SerializeField]
 	//string sheetName = "SpreadSheet Name";
 	[SerializeField]
-	string account = "account@gameus.co.kr";
+	string account = "account@gmail.com"; // your google acccount.
 	[SerializeField]
 	string password = "";	
 	
