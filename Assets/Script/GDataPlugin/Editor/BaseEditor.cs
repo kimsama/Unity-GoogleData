@@ -153,7 +153,7 @@ public class BaseEditor<T> : Editor where T : BaseDatabase
                 authenticated = false;
             }
 
-           if (GUILayout.Button("Downlaod"))
+           if (GUILayout.Button("Download"))
            {
 				if (!Load ())
                     Debug.LogError("Failed to Load data from Google.");
