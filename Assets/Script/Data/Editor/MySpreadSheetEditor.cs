@@ -15,7 +15,7 @@ public class MySpreadSheetEditor  : BaseEditor<MySpreadSheet>
 	{
 		base.OnEnable();
 		
-		MySpreadSheet data = database as MySpreadSheet;
+		MySpreadSheet data = target as MySpreadSheet;
 		
 		databaseFields = ExposeProperties.GetProperties(data);
 		
@@ -35,7 +35,7 @@ public class MySpreadSheetEditor  : BaseEditor<MySpreadSheet>
 		{
 			pInfoList.Clear();
 			
-			MySpreadSheet data = database as MySpreadSheet;
+			MySpreadSheet data = target as MySpreadSheet;
 			foreach(MyData e in data.dataArray)
 			{
 				dataFields = ExposeProperties.GetProperties(e);
@@ -49,9 +49,11 @@ public class MySpreadSheetEditor  : BaseEditor<MySpreadSheet>
 	
 	public override bool Load()
 	{
+		MySpreadSheet targetData = target as MySpreadSheet;
+		
 		var client = new DatabaseClient(username, password);		
-		var db = client.GetDatabase(database.SheetName) ?? client.CreateDatabase(database.SheetName);	
-		var table = db.GetTable<MyData>(database.WorksheetName) ?? db.CreateTable<MyData>(database.WorksheetName);
+		var db = client.GetDatabase(targetData.SheetName) ?? client.CreateDatabase(targetData.SheetName);	
+		var table = db.GetTable<MyData>(targetData.WorksheetName) ?? db.CreateTable<MyData>(targetData.WorksheetName);
 		
 		List<MyData> myDataList = new List<MyData>();
 		
@@ -73,10 +75,10 @@ public class MySpreadSheetEditor  : BaseEditor<MySpreadSheet>
 		}
 #endif
 		
-		MySpreadSheet mySpreadSheet = (MySpreadSheet)base.database;
-		mySpreadSheet.dataArray = myDataList.ToArray();
+		//MySpreadSheet mySpreadSheet = (MySpreadSheet)base.database;
+		targetData.dataArray = myDataList.ToArray();
 		
-		EditorUtility.SetDirty(mySpreadSheet);
+		EditorUtility.SetDirty(targetData);
 		AssetDatabase.SaveAssets();
 		
 		return true;

@@ -6,7 +6,7 @@ using System.Collections;
 public class GoogleDataSettings : ScriptableObject 
 {
 	[SerializeField]
-	public static string kBuildSettingsPath = "Assets/Script/Data/Editor/";
+	public static string kBuildSettingsPath = "Assets/Script/GDataPlugin/Editor/";
 	[SerializeField]
 	public static string assetFileName = "GoogleDataSettings.asset";
 	
@@ -23,7 +23,7 @@ public class GoogleDataSettings : ScriptableObject
 	
 	void OnEnable()
 	{
-		filePath = kBuildSettingsPath + assetFileName;
+		//filePath = kBuildSettingsPath + assetFileName;
 	}
 	
 	static GoogleDataSettings s_Instance;	
@@ -33,7 +33,7 @@ public class GoogleDataSettings : ScriptableObject
 		{
 			if (s_Instance == null)
 			{
-				
+				filePath = kBuildSettingsPath + assetFileName;
 				s_Instance = (GoogleDataSettings)AssetDatabase.LoadAssetAtPath (filePath, typeof (GoogleDataSettings));
 				
 				/* if crashes at the startup of Unity editor.

@@ -3,15 +3,43 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public class MySpreadSheet : BaseDatabase 
+/// 
+/// My spread sheet.
+/// 
+[System.Serializable]
+public class MySpreadSheet : ScriptableObject //BaseDatabase 
 {
-	public MyData[] dataArray = new MyData[0];
+	
+	[HideInInspector] [SerializeField] 
+	public string sheetName = "";
+	
+	[HideInInspector] [SerializeField] 
+	public string worksheetName = "";
+	
+	[ExposeProperty]
+	public string SheetName 
+	{
+		get { return sheetName; }
+		set { sheetName = value;}
+	}
+	
+	[ExposeProperty]
+	public string WorksheetName
+	{
+		get { return worksheetName; }
+		set { worksheetName = value;}
+	}
+	
+	
+	public MyData[] dataArray;
 	
 	void OnEnable()
-	{
+	{		
 #if UNITY_EDITOR
 		//hideFlags = HideFlags.DontSave;
 #endif
+		
+		dataArray = new MyData[0];
 	}
 	
 	public MyData FindByKey(string key)
@@ -21,13 +49,23 @@ public class MySpreadSheet : BaseDatabase
 }
 
 
+/// 
+/// IMPORTANT:
+/// 	Property cannot be serizialized, only non static member filed can be.
+/// 
 [System.Serializable]
 public class MyData
 {
-	[ExposeProperty]
-	public string Key				{ get; set; }
+	[SerializeField]
+	string key;
+	
+	[SerializeField]
+	string text;
 	
 	[ExposeProperty]
-	public string Text	{ get; set; }
+	public string Key	{ get {return key; } set { key = value;} }
+	
+	[ExposeProperty]
+	public string Text	{ get { return text;} set { text = value;} }
 	
 }

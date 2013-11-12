@@ -11,23 +11,23 @@ using System.Text.RegularExpressions;
 using Google.GData.Client;
 using Google.GData.Spreadsheets;
 
-public class BaseEditor<T> : Editor where T : BaseDatabase
+public class BaseEditor<T> : Editor //where T : BaseDatabase
 {
     // google data API
-    protected GoogleSpreadsheet google;	
-    protected string googleProjectName;
-    protected bool useOAuth = false;
+    //protected GoogleSpreadsheet google;	
+    //protected string googleProjectName;
+    //protected bool useOAuth = false;
 	
     protected string username;
     protected string password;
 	
-    protected bool waitingForAccessCode = false;
-    protected string accessCode;
+    //protected bool waitingForAccessCode = false;
+    //protected string accessCode;
 	
-    protected bool authenticated = false;
+    //protected bool authenticated = false;
 
     // custom data 
-    protected BaseDatabase database; 
+    //protected BaseDatabase database; 
 	
 	// property draw
 	protected PropertyField[] databaseFields;
@@ -40,7 +40,7 @@ public class BaseEditor<T> : Editor where T : BaseDatabase
 		GoogleDataSettings settings = GoogleDataSettings.Instance;		
 		if (settings != null)
 		{
-			googleProjectName = settings.GoogleProjectName;
+			//googleProjectName = settings.GoogleProjectName;
 			username = settings.Account;
 			password = settings.Password;
 		}
@@ -50,8 +50,8 @@ public class BaseEditor<T> : Editor where T : BaseDatabase
 			return;
 		}
 				
-		database = target as BaseDatabase;
-		Debug.Log ("Target type: " + database.GetType().ToString());
+		//database = target as BaseDatabase;
+		//Debug.Log ("Target type: " + database.GetType().ToString());
 	}
 
     public override void OnInspectorGUI()
@@ -76,7 +76,13 @@ public class BaseEditor<T> : Editor where T : BaseDatabase
 	/// 
 	public virtual bool Load()
 	{
-		return false;
+		if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+		{
+			Debug.LogError("User account or password is empty.");
+		    return false;
+		}
+		
+		return true;
 	}
 	
   	protected List<int> SetArrayValue(string from)
@@ -96,6 +102,7 @@ public class BaseEditor<T> : Editor where T : BaseDatabase
 
     void ShowAuthenticastion()
     {
+		/*
         if (google == null)
         {
             // Get the name of the google project.
@@ -165,9 +172,19 @@ public class BaseEditor<T> : Editor where T : BaseDatabase
             	;
            }
         }
+        */
+		
+	    username = EditorGUILayout.TextField("Username", username);
+		password = EditorGUILayout.PasswordField("Password", password);
+		
+        if (GUILayout.Button("Download"))
+        {
+			if (!Load ())
+                Debug.LogError("Failed to Load data from Google.");
+        }				
     }
 	
-		
+/*		
 	/// 
 	/// Retrieve workseet with the given worksheet name.
 	/// 
@@ -181,6 +198,7 @@ public class BaseEditor<T> : Editor where T : BaseDatabase
 		
 		return worksheet;
 	}
+*/	
 	
 	/*
 	public static void DrawDefaultInspectors<T>(GUIContent label, T target)
