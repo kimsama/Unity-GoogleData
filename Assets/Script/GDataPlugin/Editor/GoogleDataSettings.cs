@@ -6,9 +6,9 @@ using System.Collections;
 public class GoogleDataSettings : ScriptableObject 
 {
 	[SerializeField]
-	public string kBuildSettingsPath = "Assets/Script/Data/Editor/";
+	public static string kBuildSettingsPath = "Assets/Script/Data/Editor/";
 	[SerializeField]
-	public string assetFileName = "GoogleDataSettings.asset";
+	public static string assetFileName = "GoogleDataSettings.asset";
 	
 	public static string filePath;
 	
