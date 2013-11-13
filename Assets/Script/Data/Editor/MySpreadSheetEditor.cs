@@ -49,6 +49,9 @@ public class MySpreadSheetEditor  : BaseEditor<MySpreadSheet>
 	
 	public override bool Load()
 	{
+		if (!base.Load())
+			return false;
+		
 		MySpreadSheet targetData = target as MySpreadSheet;
 		
 		var client = new DatabaseClient(username, password);		
@@ -75,7 +78,6 @@ public class MySpreadSheetEditor  : BaseEditor<MySpreadSheet>
 		}
 #endif
 		
-		//MySpreadSheet mySpreadSheet = (MySpreadSheet)base.database;
 		targetData.dataArray = myDataList.ToArray();
 		
 		EditorUtility.SetDirty(targetData);

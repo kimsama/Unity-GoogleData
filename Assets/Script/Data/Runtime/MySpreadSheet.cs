@@ -29,20 +29,20 @@ public class MySpreadSheet : ScriptableObject //BaseDatabase
 		get { return worksheetName; }
 		set { worksheetName = value;}
 	}
-		
-	// Initialize in OnEnable().
+	
+	// Note: initialize in OnEnable() not here.
 	public MyData[] dataArray;
 	
 	void OnEnable()
 	{		
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
 		//hideFlags = HideFlags.DontSave;
-#endif
+//#endif
 		// Important:
 		//    It should be checked an initialization of any collection data before it is initialized.
 		//    Without this check, the array collection which already has its data get to be null 
 		//    because OnEnable is called whenever Unity builds.
-		// 
+		// 		
 		if (dataArray == null)
 		    dataArray = new MyData[0];
 	}

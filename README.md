@@ -80,7 +80,8 @@ Note that Unity only can serialize non static member fields so the member fields
     }
 
 
-Next, you need a ScriptableObject derived class which serializes data from google spreadsheet and to Unity Editor. 
+Next, you need a ScriptableObject derived class which serializes data from google spreadsheet to Unity Editor. Note that whenever Unity builds it calls component's OnEnable() so it is reinitialized even the data already has all its values. Not to this happen, it should be checked that only it is initialized in the case of the data is null, mostly on its first time downloading from google spreadsheet. 
+
 
 	public class MySpreadSheet : ScriptableObject 
 	{
@@ -108,6 +109,7 @@ Next, you need a ScriptableObject derived class which serializes data from googl
 		
 	    void OnEnable()
 	    {		
+	    	// IMPORTANT!
 		    if (dataArray == null)
 		        dataArray = new MyData[0];
 	    }
@@ -115,22 +117,13 @@ Next, you need a ScriptableObject derived class which serializes data from googl
 	}
 
 
-You also need to write editor script. It needs to override three member functions: *OnEnable*, *OnInspectorGUI* and *Load* are that.
+You also need to write editor script to reflect all retrieved data on a Unity's inspector view. Create a new editor script file in any Editor folder. It needs to override three member functions: *OnEnable*, *OnInspectorGUI* and *Load* are that.
 
-
-	using UnityEngine;
-	using UnityEditor;
-	using System.Collections;
-	using System.Collections.Generic;
-	using System.Text;
-
-	using GDataDB;
-	using GDataDB.Linq;
+In the *OnEnable* method, we need to gether all properties of our serializable data class to reflect all its value on a Unity's inspector view after retrieving that from google spreadsheet.
 
 	[CustomEditor(typeof(MySpreadSheet))]
 	public class MySpreadSheetEditor  : BaseEditor<MySpreadSheet>
 	{
-		
 		public override void OnEnable()
 		{
 			base.OnEnable();
@@ -153,7 +146,6 @@ Within *OnInspectorGUI*, all data which are retrieved are properly drawn on the 
 		{
 			base.OnInspectorGUI();
 			
-			//DrawDefaultInspector();
 			if (GUI.changed)
 			{
 				pInfoList.Clear();
@@ -221,6 +213,10 @@ Last, write an editor script which makes a menu item for creating newly defined 
 Limitation
 ----------
 
+
+
+Todo
+-------
 
 
 References
