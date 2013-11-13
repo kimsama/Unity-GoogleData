@@ -61,7 +61,7 @@ Now, press *Download* button and it will retrieve all data from the specified wo
 ### Creating Your Own Unity3D ScriptableObject class
 
 First, you need to define a data class which represents google worksheet. As the following code, if you have two colums, *Key* and *Text* you also need to define two member fields and properties for that. 
-Note that Unity only can serialize non static member fields so the member fields are needed for a serialization and the properties which have *[ExposeProperty]* attribute are needed to be relfected its value on a Unity's inspector view.
+Note that Unity only can serialize non static member fields([See the reference](http://docs.unity3d.com/Documentation/ScriptReference/SerializeField.html)) so the member fields are needed for a serialization and the properties which have *[ExposeProperty]* attribute are needed to be relfected its value on a Unity's inspector view.
 
     [System.Serializable]
     public class MyData
@@ -221,7 +221,7 @@ Todo
 
 References
 ----------
-* [Unity Serialization](http://forum.unity3d.com/threads/155352-Serialization-Best-Practices-Megapost) on Unity's forum for details of the serialization mechanism.
+* [Unity Serialization](http://forum.unity3d.com/threads/155352-Serialization-Best-Practices-Megapost) on Unity's forum for details of serialization mechanism.
 * [GDataDB](https://github.com/mausch/GDataDB) is used to retrieve data from Google Spreadsheet. Note that [GDataDB](https://github.com/mausch/GDataDB) is slightly modified to support *enum* type.
 * [ExposeProperties](http://wiki.unity3d.com/index.php/Expose_properties_in_inspector) is used to easily expose variables of spreadsheet on the Unity3D's inspector view and let [GDataDB](https://github.com/mausch/GDataDB) access through get/set accessors.
 
