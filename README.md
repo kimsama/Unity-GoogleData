@@ -8,7 +8,7 @@ Features
 --------
 * It can create an empty google spreadsheet.
 * It can retrieve data from google spreadsheet.
-* It can upload data back to google spreadsheet.
+* It can upload data back to google spreadsheet. (not supported yet)
 * No need to parse any retrieved data, it automatically serializes retrieved data to Unity3D's ScriptableObject.
 
 
@@ -60,36 +60,58 @@ Now, press *Download* button and it will retrieve all data from the specified wo
 
 ### Creating Your Own Unity3D ScriptableObject class
 
-First, you need to define a data class which represents google worksheet. As the following code, if you have two colums, *Key* and *Text* you also need to define two properties for that.
+First, you need to define a data class which represents google worksheet. As the following code, if you have two colums, *Key* and *Text* you also need to define two member fields and properties for that. 
+Note that Unity only can serialize non static member fields so the member fields are needed for a serialization and the properties which have *[ExposeProperty]* attribute are needed to be relfected its value on a Unity's inspector view.
 
     [System.Serializable]
     public class MyData
     {
-	    [ExposeProperty]
-	    public string Key	{ get; set; }
+	    [SerializeField]
+	    string key;
+	
+	    [SerializeField]
+	    string text;
 	
 	    [ExposeProperty]
-	    public string Text	{ get; set; }	
+	    public string Key	{ get {return key; } set { key = value;} }
+	
+	    [ExposeProperty]
+	    public string Text	{ get { return text;} set { text = value;} }	
     }
 
 
-You need a ScriptableObject derived class which serializes data from google spreadsheet and to Unity Editor. It can be easily done with writing a BaseDatabase derived class.
+Next, you need a ScriptableObject derived class which serializes data from google spreadsheet and to Unity Editor. 
 
-	public class MySpreadSheet : BaseDatabase 
+	public class MySpreadSheet : ScriptableObject 
 	{
-		public MyData[] dataArray = new MyData[0];
+	    [HideInInspector] [SerializeField] 
+	    public string sheetName = "";
+	
+	    [HideInInspector] [SerializeField] 
+	    public string worksheetName = "";
+	
+	    [ExposeProperty]
+	    public string SheetName 
+	    {
+		    get { return sheetName; }
+		    set { sheetName = value;}
+	    }
+	
+	    [ExposeProperty]
+	    public string WorksheetName
+	    {
+		    get { return worksheetName; }
+		    set { worksheetName = value;}
+	    }		
+
+		public MyData[] dataArray;
 		
-		void OnEnable()
-		{
-	#if UNITY_EDITOR
-			//hideFlags = HideFlags.DontSave;
-	#endif
-		}
-		
-		public MyData FindByKey(string key)
-		{
-			return Array.Find(dataArray, d => d.Key == key);
-		}
+	    void OnEnable()
+	    {		
+		    if (dataArray == null)
+		        dataArray = new MyData[0];
+	    }
+	    ...
 	}
 
 
@@ -113,7 +135,7 @@ You also need to write editor script. It needs to override three member function
 		{
 			base.OnEnable();
 			
-			MySpreadSheet data = database as MySpreadSheet;
+			MySpreadSheet data = target as MySpreadSheet;
 			
 			databaseFields = ExposeProperties.GetProperties(data);
 			
@@ -136,7 +158,7 @@ Within *OnInspectorGUI*, all data which are retrieved are properly drawn on the 
 			{
 				pInfoList.Clear();
 				
-				MySpreadSheet data = database as MySpreadSheet;
+				MySpreadSheet data = target as MySpreadSheet;
 				foreach(MyData e in data.dataArray)
 				{
 					dataFields = ExposeProperties.GetProperties(e);
@@ -153,9 +175,14 @@ When you press *Download* button, overrided *Load* member function is called. So
 
 		public override bool Load()
 		{
+		    if (!base.Load())
+			    return false;
+		
+		    MySpreadSheet targetData = target as MySpreadSheet;			
+
 			var client = new DatabaseClient(username, password);		
-			var db = client.GetDatabase(database.SheetName) ?? client.CreateDatabase(database.SheetName);	
-			var table = db.GetTable<MyData>(database.WorksheetName) ?? db.CreateTable<MyData>(database.WorksheetName);
+			var db = client.GetDatabase(targetData.SheetName) ?? client.CreateDatabase(targetData.SheetName);	
+			var table = db.GetTable<MyData>(targetData.WorksheetName) ?? db.CreateTable<MyData>(targetData.WorksheetName);
 			
 			List<MyData> myDataList = new List<MyData>();
 			
@@ -168,8 +195,7 @@ When you press *Download* button, overrided *Load* member function is called. So
 				myDataList.Add(data);
 			}
 						
-			MySpreadSheet mySpreadSheet = (MySpreadSheet)base.database;
-			mySpreadSheet.dataArray = myDataList.ToArray();
+			targetData.dataArray = myDataList.ToArray();
 			
 			EditorUtility.SetDirty(mySpreadSheet);
 			AssetDatabase.SaveAssets();
@@ -179,7 +205,7 @@ When you press *Download* button, overrided *Load* member function is called. So
 	}
 
 
-Last, write an editor script which makes a menu item for creating newly defined scriptable object.
+Last, write an editor script which makes a menu item for creating newly defined scriptable object. (See Assets/Script/Data/Editor/GoogleDataAssetUtility.cs file.) Whenever you add a new ScriptableObject derived class, you also need to add a new method which creates a new ScriptableObject derived class instance.
 
 	public static class GoogleDataAssetUtility
 	{
@@ -199,6 +225,7 @@ Limitation
 
 References
 ----------
+* [Unity Serialization](http://forum.unity3d.com/threads/155352-Serialization-Best-Practices-Megapost) on Unity's forum for details of the serialization mechanism.
 * [GDataDB](https://github.com/mausch/GDataDB) is used to retrieve data from Google Spreadsheet. Note that [GDataDB](https://github.com/mausch/GDataDB) is slightly modified to support *enum* type.
 * [ExposeProperties](http://wiki.unity3d.com/index.php/Expose_properties_in_inspector) is used to easily expose variables of spreadsheet on the Unity3D's inspector view and let [GDataDB](https://github.com/mausch/GDataDB) access through get/set accessors.
 
