@@ -8,6 +8,11 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 
+// to resolve TlsException error.
+using System.Net;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
+
 using Google.GData.Client;
 using Google.GData.Spreadsheets;
 
@@ -28,8 +33,22 @@ public class BaseEditor<T> : Editor //where T : BaseDatabase
 	
 	protected List<PropertyField[]> pInfoList = new List<PropertyField[]>();
 		
+	/// 
+	/// Actively ignore security concerns to resolve TlsException error.
+	/// 
+	/// See: http://www.mono-project.com/UsingTrustedRootsRespectfully
+	///
+	public static bool Validator (object sender, X509Certificate certificate, X509Chain chain, 
+	                              SslPolicyErrors sslPolicyErrors)
+	{
+		return true;
+	}
+
 	public virtual void OnEnable()
 	{
+		// resolves TlsException error
+		ServicePointManager.ServerCertificateValidationCallback = Validator;
+
 		GoogleDataSettings settings = GoogleDataSettings.Instance;		
 		if (settings != null)
 		{
