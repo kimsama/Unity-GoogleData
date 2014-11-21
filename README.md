@@ -210,6 +210,13 @@ Last, write an editor script which makes a menu item for creating newly defined 
 	}
 
 
+Note
+---------
+If you met an error which is shown as an invalid credentials when you try to get data by clicking 'download' button, check that your google accout page and you have two-stage verification.
+
+If you have Google two-stage verification on, then it doesn't matter what your Google password is, it won't be accepted. You need to generate (on Google) what is called an Application Specific Password (ASP). Go to [Google Account Page](https://www.google.com/settings/account) and set up an ASP, enter the password you generate as the password in your code, and you're done.
+
+
 Limitation
 ----------
 
