@@ -1,6 +1,9 @@
 Unity-GoogleData
 ================
 
+***IMPORTANT*** <br>
+See [Unity-QuickSheet](https://github.com/kimsama/Unity-QuickSheet) instead of using this package. [Unity-QuickSheet](https://github.com/kimsama/Unity-QuickSheet) supports not only Google data but also can get data from Excel file even without writing single line of code!
+
 Unity-GoogleData enables to use google spreadsheet data within Unity editor. With Unity-GoogleData, you can retrieve data from google spreadsheet or upload any changed data back to google spreadsheet. 
 
 
@@ -217,10 +220,12 @@ If you met an error which is shown as an invalid credentials when you try to get
 If you have Google two-stage verification on, then it doesn't matter what your Google password is, it won't be accepted. You need to generate (on Google) what is called an Application Specific Password (ASP). Go to [Google Account Page](https://www.google.com/settings/account) and set up an ASP, enter the password you generate as the password in your code, and you're done.
 
 
-Limitation
-----------
+Limitations
+-----------
 
+* ScritableObject does not allow to save data changed on runtime. So if you need to serialize and save things that changes on runtime, you need to look at other methods of serialization such as JSON, BSON or XML, depending on your platform and/or requirements.
 
+* Unity-GoogleData does not work in the Unity web player's security sandbox. You should change the *Platform* to *'Stand Alone'* or something else such as *'iOS'* or *'Android'* platform in the ***Build Setting***.
 
 Todo
 -------
