@@ -2,6 +2,7 @@ Unity-GoogleData
 ================
 
 ***IMPORTANT*** <br>
+OAuth 1.0 is no longer supported and disabled on May 5, 2015. which means Unity-GoogleData does not work without supporting OAuth 2.0.
 See [Unity-QuickSheet](https://github.com/kimsama/Unity-QuickSheet) instead of using this package. [Unity-QuickSheet](https://github.com/kimsama/Unity-QuickSheet) supports not only Google data but also can get data from Excel file even without writing single line of code!
 
 Unity-GoogleData enables to use google spreadsheet data within Unity editor. With Unity-GoogleData, you can retrieve data from google spreadsheet or upload any changed data back to google spreadsheet. 
